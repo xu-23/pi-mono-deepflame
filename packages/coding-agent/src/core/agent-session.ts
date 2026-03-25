@@ -2249,7 +2249,7 @@ export class AgentSession {
 		const toolRegistry = new Map(
 			Array.from(this._baseToolDefinitions.values()).map((definition) => [
 				definition.name,
-				wrapToolDefinition(definition),
+				wrapToolDefinition(definition, () => this._extensionRunner?.createContext() as never),
 			]),
 		);
 		for (const tool of wrappedExtensionTools as AgentTool[]) {
@@ -2306,18 +2306,13 @@ export class AgentSession {
 			}
 		}
 
-		const hasExtensions = extensionsResult.extensions.length > 0;
-		const hasCustomTools = this._customTools.length > 0;
-		this._extensionRunner =
-			hasExtensions || hasCustomTools
-				? new ExtensionRunner(
-						extensionsResult.extensions,
-						extensionsResult.runtime,
-						this._cwd,
-						this.sessionManager,
-						this._modelRegistry,
-					)
-				: undefined;
+		this._extensionRunner = new ExtensionRunner(
+			extensionsResult.extensions,
+			extensionsResult.runtime,
+			this._cwd,
+			this.sessionManager,
+			this._modelRegistry,
+		);
 		if (this._extensionRunnerRef) {
 			this._extensionRunnerRef.current = this._extensionRunner;
 		}
@@ -2328,7 +2323,7 @@ export class AgentSession {
 
 		const defaultActiveToolNames = this._baseToolsOverride
 			? Object.keys(this._baseToolsOverride)
-			: ["read", "bash", "edit", "write"];
+			: ["read", "bash", "edit", "write", "question"];
 		const baseActiveToolNames = options.activeToolNames ?? defaultActiveToolNames;
 		this._refreshToolRegistry({
 			activeToolNames: baseActiveToolNames,
