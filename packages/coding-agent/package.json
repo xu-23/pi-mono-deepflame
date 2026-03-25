@@ -1,7 +1,7 @@
 {
-	"name": "@mariozechner/pi-coding-agent",
-	"version": "0.62.0",
-	"description": "Coding agent CLI with read, bash, edit, write tools and session management",
+	"name": "@deepflame-ai/pi-coding-agent",
+	"version": "0.1.0",
+	"description": "Coding agent CLI with read, bash, edit, write, question tools and session management",
 	"type": "module",
 	"piConfig": {
 		"name": "pi",
@@ -28,6 +28,13 @@
 		"examples",
 		"CHANGELOG.md"
 	],
+	"homepage": "https://github.com/LuneZhang/pi-mono-deepflame/tree/main/packages/coding-agent#readme",
+	"bugs": {
+		"url": "https://github.com/LuneZhang/pi-mono-deepflame/issues"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
 	"scripts": {
 		"clean": "shx rm -rf dist",
 		"dev": "tsgo -p tsconfig.build.json --watch --preserveWatchOutput",
@@ -86,11 +93,11 @@
 		"tui",
 		"agent"
 	],
-	"author": "Mario Zechner",
+	"author": "Haoze Zhang",
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/badlogic/pi-mono.git",
+		"url": "git+https://github.com/LuneZhang/pi-mono-deepflame.git",
 		"directory": "packages/coding-agent"
 	},
 	"engines": {
