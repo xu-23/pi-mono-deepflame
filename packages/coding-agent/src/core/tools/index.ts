@@ -53,6 +53,16 @@ export {
 	lsToolDefinition,
 } from "./ls.js";
 export {
+	createQuestionTool,
+	createQuestionToolDefinition,
+	type QuestionInfo,
+	type QuestionOption,
+	type QuestionToolDetails,
+	type QuestionToolInput,
+	questionTool,
+	questionToolDefinition,
+} from "./question.js";
+export {
 	createReadTool,
 	createReadToolDefinition,
 	type ReadOperations,
@@ -95,6 +105,7 @@ import { createEditTool, createEditToolDefinition, editTool, editToolDefinition 
 import { createFindTool, createFindToolDefinition, findTool, findToolDefinition } from "./find.js";
 import { createGrepTool, createGrepToolDefinition, grepTool, grepToolDefinition } from "./grep.js";
 import { createLsTool, createLsToolDefinition, lsTool, lsToolDefinition } from "./ls.js";
+import { createQuestionTool, createQuestionToolDefinition, questionTool, questionToolDefinition } from "./question.js";
 import {
 	createReadTool,
 	createReadToolDefinition,
@@ -107,7 +118,7 @@ import { createWriteTool, createWriteToolDefinition, writeTool, writeToolDefinit
 export type Tool = AgentTool<any>;
 export type ToolDef = ToolDefinition<any, any>;
 
-export const codingTools: Tool[] = [readTool, bashTool, editTool, writeTool];
+export const codingTools: Tool[] = [readTool, bashTool, editTool, writeTool, questionTool];
 export const readOnlyTools: Tool[] = [readTool, grepTool, findTool, lsTool];
 
 export const allTools = {
@@ -115,6 +126,7 @@ export const allTools = {
 	bash: bashTool,
 	edit: editTool,
 	write: writeTool,
+	question: questionTool,
 	grep: grepTool,
 	find: findTool,
 	ls: lsTool,
@@ -125,6 +137,7 @@ export const allToolDefinitions = {
 	bash: bashToolDefinition,
 	edit: editToolDefinition,
 	write: writeToolDefinition,
+	question: questionToolDefinition,
 	grep: grepToolDefinition,
 	find: findToolDefinition,
 	ls: lsToolDefinition,
@@ -143,6 +156,7 @@ export function createCodingToolDefinitions(cwd: string, options?: ToolsOptions)
 		createBashToolDefinition(cwd, options?.bash),
 		createEditToolDefinition(cwd),
 		createWriteToolDefinition(cwd),
+		createQuestionToolDefinition(),
 	];
 }
 
@@ -161,6 +175,7 @@ export function createAllToolDefinitions(cwd: string, options?: ToolsOptions): R
 		bash: createBashToolDefinition(cwd, options?.bash),
 		edit: createEditToolDefinition(cwd),
 		write: createWriteToolDefinition(cwd),
+		question: createQuestionToolDefinition(),
 		grep: createGrepToolDefinition(cwd),
 		find: createFindToolDefinition(cwd),
 		ls: createLsToolDefinition(cwd),
@@ -173,6 +188,7 @@ export function createCodingTools(cwd: string, options?: ToolsOptions): Tool[] {
 		createBashTool(cwd, options?.bash),
 		createEditTool(cwd),
 		createWriteTool(cwd),
+		createQuestionTool(),
 	];
 }
 
@@ -186,6 +202,7 @@ export function createAllTools(cwd: string, options?: ToolsOptions): Record<Tool
 		bash: createBashTool(cwd, options?.bash),
 		edit: createEditTool(cwd),
 		write: createWriteTool(cwd),
+		question: createQuestionTool(),
 		grep: createGrepTool(cwd),
 		find: createFindTool(cwd),
 		ls: createLsTool(cwd),
