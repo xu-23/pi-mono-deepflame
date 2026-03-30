@@ -1,0 +1,9 @@
+{
+  "name": "pi-mono-deepflame-question",
+  "private": true,
+  "pi": {
+    "extensions": [
+      "./index.ts"
+    ]
+  }
+}
