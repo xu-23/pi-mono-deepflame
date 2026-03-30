@@ -15,7 +15,6 @@ OSS weekend runs Sunday, March 22, 2026 through Monday, March 30, 2026. New issu
 </p>
 <p align="center">
   <a href="https://discord.com/invite/3cU7Bz4UPx"><img alt="Discord" src="https://img.shields.io/badge/discord-community-5865F2?style=flat-square&logo=discord&logoColor=white" /></a>
-	<a href="https://www.npmjs.com/package/@lunezhang/pi-coding-agent"><img alt="npm" src="https://img.shields.io/npm/v/@lunezhang/pi-coding-agent?style=flat-square" /></a>
 	<a href="https://github.com/LuneZhang/pi-mono-deepflame/actions/workflows/ci.yml"><img alt="Build status" src="https://img.shields.io/github/actions/workflow/status/LuneZhang/pi-mono-deepflame/ci.yml?style=flat-square&branch=main" /></a>
 </p>
 <p align="center">
@@ -59,7 +58,10 @@ Pi runs in four modes: interactive, print or JSON, RPC for process integration, 
 ## Quick Start
 
 ```bash
-npm install -g @lunezhang/pi-coding-agent
+git clone https://github.com/LuneZhang/pi-mono-deepflame.git
+cd pi-mono-deepflame
+./scripts/dev-install-pi.sh
+pi
 ```
 
 Authenticate with an API key:
@@ -76,9 +78,42 @@ pi
 /login  # Then select provider
 ```
 
-Then just talk to pi. By default, pi gives the model five tools: `read`, `write`, `edit`, `bash`, and `question`. The model uses these to fulfill your requests. Add capabilities via [skills](#skills), [prompt templates](#prompt-templates), [extensions](#extensions), or [pi packages](#pi-packages).
+Then just talk to pi. By default, pi gives the model four built-in tools: `read`, `write`, `edit`, and `bash`. This fork keeps its optional plugins under `extra-extensions/extensions/`, and you can install them selectively by copying the desired plugin folders into `~/.pi/agent/extensions/`. Add capabilities via [skills](#skills), [prompt templates](#prompt-templates), [extensions](#extensions), or [pi packages](#pi-packages).
+
+### Install Optional Plugins From This Fork
+
+```bash
+mkdir -p ~/.pi/agent/extensions
+
+cp -R extra-extensions/extensions/question ~/.pi/agent/extensions/question
+
+cp -R extra-extensions/extensions/research-agent ~/.pi/agent/extensions/research-agent
+cd ~/.pi/agent/extensions/research-agent
+npm install
+```
+
+Copy the optional helper plugins as single-file extensions:
+
+```bash
+cp extra-extensions/extensions/diff.ts ~/.pi/agent/extensions/diff.ts
+cp extra-extensions/extensions/files.ts ~/.pi/agent/extensions/files.ts
+cp extra-extensions/extensions/prompt-url-widget.ts ~/.pi/agent/extensions/prompt-url-widget.ts
+cp extra-extensions/extensions/redraws.ts ~/.pi/agent/extensions/redraws.ts
+cp extra-extensions/extensions/tps.ts ~/.pi/agent/extensions/tps.ts
+```
+
+Restart `pi` or run `/reload` after copying new plugin files or folders.
 
 **Platform notes:** [Windows](docs/windows.md) | [Termux (Android)](docs/termux.md) | [tmux](docs/tmux.md) | [Terminal setup](docs/terminal-setup.md) | [Shell aliases](docs/shell-aliases.md)
+
+### Updating This Fork
+
+```bash
+git pull
+./scripts/dev-install-pi.sh
+```
+
+Rerunning the install script refreshes the global `pi` command. If you use copied plugins from `extra-extensions/extensions/`, copy the updated plugin files or folders into `~/.pi/agent/extensions/` again after pulling changes, then restart `pi` or run `/reload`.
 
 ---
 
@@ -496,10 +531,12 @@ cat README.md | pi -p "Summarize this text"
 
 | Option | Description |
 |--------|-------------|
-| `--tools <list>` | Enable specific built-in tools (default: `read,bash,edit,write,question`) |
+| `--tools <list>` | Enable specific built-in tools (default: `read,bash,edit,write`) |
 | `--no-tools` | Disable all built-in tools (extension tools still work) |
 
-Available built-in tools: `read`, `bash`, `edit`, `write`, `question`, `grep`, `find`, `ls`
+Available built-in tools: `read`, `bash`, `edit`, `write`, `grep`, `find`, `ls`
+
+For this fork's optional plugin collection, see `extra-extensions/README.md`.
 
 ### Resource Options
 

@@ -41,6 +41,51 @@ Tools for building AI agents and managing LLM deployments.
 | **[@mariozechner/pi-web-ui](packages/web-ui)** | Web components for AI chat interfaces |
 | **[@mariozechner/pi-pods](packages/pods)** | CLI for managing vLLM deployments on GPU pods |
 
+## Install This Fork
+
+```bash
+git clone https://github.com/LuneZhang/pi-mono-deepflame.git
+cd pi-mono-deepflame
+./scripts/dev-install-pi.sh
+pi
+```
+
+The install script builds and installs the `pi` CLI from this fork. It does not auto-install any optional extensions.
+
+## Install Optional Extensions
+
+Create the global extension directory if needed:
+
+```bash
+mkdir -p ~/.pi/agent/extensions
+```
+
+Install the structured question tool:
+
+```bash
+cp -R extra-extensions/extensions/question ~/.pi/agent/extensions/question
+```
+
+Install the research agent package:
+
+```bash
+cp -R extra-extensions/extensions/research-agent ~/.pi/agent/extensions/research-agent
+cd ~/.pi/agent/extensions/research-agent
+npm install
+```
+
+Install the other optional helper plugins by copying their single-file extensions:
+
+```bash
+cp extra-extensions/extensions/diff.ts ~/.pi/agent/extensions/diff.ts
+cp extra-extensions/extensions/files.ts ~/.pi/agent/extensions/files.ts
+cp extra-extensions/extensions/prompt-url-widget.ts ~/.pi/agent/extensions/prompt-url-widget.ts
+cp extra-extensions/extensions/redraws.ts ~/.pi/agent/extensions/redraws.ts
+cp extra-extensions/extensions/tps.ts ~/.pi/agent/extensions/tps.ts
+```
+
+Restart `pi` or run `/reload` after copying new plugin files or folders. See `extra-extensions/README.md` for the full plugin list.
+
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines and [AGENTS.md](AGENTS.md) for project-specific rules (for both humans and agents).
@@ -51,6 +96,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines and [AGENTS.m
 npm install          # Install all dependencies
 npm run build        # Build all packages
 npm run check        # Lint, format, and type check
+./scripts/dev-install-pi.sh # Build and install pi from this fork
 ./test.sh            # Run tests (skips LLM-dependent tests without API keys)
 ./pi-test.sh         # Run pi from sources (must be run from repo root)
 ```
