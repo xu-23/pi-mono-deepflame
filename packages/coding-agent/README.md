@@ -82,27 +82,26 @@ Then just talk to pi. By default, pi gives the model four built-in tools: `read`
 
 ### Install Optional Plugins From This Fork
 
+Copy the plugin you want into `~/.pi/agent/extensions/`. For example, to install `question`:
+
 ```bash
 mkdir -p ~/.pi/agent/extensions
-
-cp -R extra-extensions/extensions/question ~/.pi/agent/extensions/question
-
-cp -R extra-extensions/extensions/research-agent ~/.pi/agent/extensions/research-agent
-cd ~/.pi/agent/extensions/research-agent
-npm install
+cp -r extra-extensions/extensions/question ~/.pi/agent/extensions/question
 ```
 
-Copy the optional helper plugins as single-file extensions:
+Available plugins:
 
-```bash
-cp extra-extensions/extensions/diff.ts ~/.pi/agent/extensions/diff.ts
-cp extra-extensions/extensions/files.ts ~/.pi/agent/extensions/files.ts
-cp extra-extensions/extensions/prompt-url-widget.ts ~/.pi/agent/extensions/prompt-url-widget.ts
-cp extra-extensions/extensions/redraws.ts ~/.pi/agent/extensions/redraws.ts
-cp extra-extensions/extensions/tps.ts ~/.pi/agent/extensions/tps.ts
-```
+| Name | Description |
+|------|-------------|
+| `question` | Structured question tool with multi-select and custom answers. |
+| `research-agent` | Research workflow agent with `/research` command and `research` tool. Requires `npm install` after copying. |
+| `diff.ts` | Shows git changes and opens selected files in VS Code diff view. |
+| `files.ts` | Shows files that the current session has read, written, or edited. |
+| `prompt-url-widget.ts` | Adds a widget for GitHub PR and issue prompts and improves session naming. |
+| `redraws.ts` | Adds `/tui` to show TUI redraw statistics. |
+| `tps.ts` | Shows token throughput notifications after an agent run completes. |
 
-Restart `pi` or run `/reload` after copying new plugin files or folders.
+Restart `pi` or run `/reload` after copying new plugin files or folders. See `../../extra-extensions/README.md` for plugin-specific notes.
 
 **Platform notes:** [Windows](docs/windows.md) | [Termux (Android)](docs/termux.md) | [tmux](docs/tmux.md) | [Terminal setup](docs/terminal-setup.md) | [Shell aliases](docs/shell-aliases.md)
 

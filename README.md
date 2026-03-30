@@ -54,37 +54,26 @@ The install script builds and installs the `pi` CLI from this fork. It does not 
 
 ## Install Optional Extensions
 
-Create the global extension directory if needed:
+Create the global extension directory if needed, then copy the plugin you want. For example, to install `question`:
 
 ```bash
 mkdir -p ~/.pi/agent/extensions
+cp -r extra-extensions/extensions/question ~/.pi/agent/extensions/question
 ```
 
-Install the structured question tool:
+Available plugins:
 
-```bash
-cp -R extra-extensions/extensions/question ~/.pi/agent/extensions/question
-```
+| Name | Description |
+|------|-------------|
+| `question` | Structured question tool with multi-select and custom answers. |
+| `research-agent` | Research workflow agent with `/research` command and `research` tool. Requires `npm install` after copying. |
+| `diff.ts` | Shows git changes and opens selected files in VS Code diff view. |
+| `files.ts` | Shows files that the current session has read, written, or edited. |
+| `prompt-url-widget.ts` | Adds a widget for GitHub PR and issue prompts and improves session naming. |
+| `redraws.ts` | Adds `/tui` to show TUI redraw statistics. |
+| `tps.ts` | Shows token throughput notifications after an agent run completes. |
 
-Install the research agent package:
-
-```bash
-cp -R extra-extensions/extensions/research-agent ~/.pi/agent/extensions/research-agent
-cd ~/.pi/agent/extensions/research-agent
-npm install
-```
-
-Install the other optional helper plugins by copying their single-file extensions:
-
-```bash
-cp extra-extensions/extensions/diff.ts ~/.pi/agent/extensions/diff.ts
-cp extra-extensions/extensions/files.ts ~/.pi/agent/extensions/files.ts
-cp extra-extensions/extensions/prompt-url-widget.ts ~/.pi/agent/extensions/prompt-url-widget.ts
-cp extra-extensions/extensions/redraws.ts ~/.pi/agent/extensions/redraws.ts
-cp extra-extensions/extensions/tps.ts ~/.pi/agent/extensions/tps.ts
-```
-
-Restart `pi` or run `/reload` after copying new plugin files or folders. See `extra-extensions/README.md` for the full plugin list.
+Restart `pi` or run `/reload` after copying new plugin files or folders. See `extra-extensions/README.md` for plugin-specific notes.
 
 ## Contributing
 
